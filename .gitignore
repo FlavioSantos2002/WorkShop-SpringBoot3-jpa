@@ -1,1 +1,3 @@
 /.metadata/
+curso/src/main/resources/application.properties
+curso/src/test/java/com/flaviosantos/curso/CursoApplicationTests.java
