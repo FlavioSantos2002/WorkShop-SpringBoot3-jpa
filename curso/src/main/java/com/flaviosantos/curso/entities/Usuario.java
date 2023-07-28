@@ -13,7 +13,7 @@ public class Usuario implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String nome;
 	private String email;
 	private String phone;
@@ -22,7 +22,7 @@ public class Usuario implements Serializable{
 	public Usuario() {
 	}
 
-	public Usuario(long id, String nome, String email, String phone, String password) {
+	public Usuario(Long id, String nome, String email, String phone, String password) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -31,11 +31,11 @@ public class Usuario implements Serializable{
 		this.password = password;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,7 +75,7 @@ public class Usuario implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -88,13 +88,13 @@ public class Usuario implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
 
-	
-	
-	
 	
 }
