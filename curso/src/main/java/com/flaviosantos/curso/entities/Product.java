@@ -8,14 +8,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Table(name = "tb_produtos")
 @Entity
-public class Product implements Serializable{
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,10 +25,11 @@ public class Product implements Serializable{
 	private String descricao;
 	private Double preco;
 	private String imgURL;
-	
-	@Transient
+
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
-	
+
 	public Product() {
 	}
 
@@ -78,7 +81,7 @@ public class Product implements Serializable{
 	public void setImgURL(String imgURL) {
 		this.imgURL = imgURL;
 	}
-	
+
 	public Set<Category> getCategories() {
 		return categories;
 	}
@@ -107,6 +110,5 @@ public class Product implements Serializable{
 			return false;
 		return true;
 	}
-
 
 }
