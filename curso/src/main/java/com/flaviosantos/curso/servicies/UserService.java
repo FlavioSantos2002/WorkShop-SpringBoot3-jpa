@@ -13,6 +13,8 @@ import com.flaviosantos.curso.repositories.UserRepository;
 import com.flaviosantos.curso.servicies.exceptions.DatabaseExcepition;
 import com.flaviosantos.curso.servicies.exceptions.ResouceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 	
@@ -45,9 +47,16 @@ public class UserService {
 	}
 	
 	public Usuario update(Long id, Usuario obj) {
-		Usuario entity = repository.getReferenceById(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		
+		try {
+			Usuario entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		}catch(EntityNotFoundException e) {
+
+			throw new ResouceNotFoundException(id);
+		}
+		
 	}
 
 	private void updateData(Usuario entity, Usuario obj) {
